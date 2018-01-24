@@ -1,0 +1,21 @@
+{
+  "name": "knockout_my_bank",
+  "version": "1.0.0",
+  "description": "Sample application for implementing a banking portal with knockout",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "mkdir -p WebContent/javascript && mkdir -p WebContent/bootstrap",
+    "copy-jquery": "cp -f node_modules/jquery/dist/jquery.js WebContent/javascript",
+    "copy-knockout": "cp -f node_modules/knockout/build/output/knockout-latest.js WebContent/javascript",
+    "copy-bootstrap": "cp -R node_modules/bootstrap/dist/ WebContent/bootstrap",
+    "build": "npm run copy-jquery & npm run copy-knockout & npm run copy-bootstrap"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "knockout": "^3.4.2"
+  }
+}
