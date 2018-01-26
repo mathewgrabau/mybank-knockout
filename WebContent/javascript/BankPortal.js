@@ -10,6 +10,20 @@ var BankPortal = function() {
 
 	/* the model */
 	var member = {
+		personal: {
+			firstName: ko.observable(),
+			lastName: ko.observable(),
+			address: {
+				street: ko.observable(),
+				city: ko.observable(),
+				postalCode: ko.observable(),
+				country: ko.observable()
+			},
+			contactDetails: {
+				phoneNumber: ko.observable(),
+				emailAddress: ko.observable()
+			}
+		},
 		accounts: ko.observableArray(),
 		selectedAccount: ko.observable(),
 		selectedAccountTransactions: ko.observableArray([])
@@ -62,6 +76,17 @@ var BankPortal = function() {
 				transactions: ko.observableArray(account.transactions)
 			});
 		});
+
+		// Add the personal information in
+		member.personal.firstName(data.personal.firstName);
+		member.personal.lastName(data.personal.lastName);
+		member.personal.contactDetails.phoneNumber(data.personal.phoneNumber);
+		member.personal.contactDetails.emailAddress(data.personal.emailAddress);
+
+		member.personal.address.street(data.personal.address.street);
+		member.personal.address.city(data.personal.address.city);
+		member.personal.address.postalCode(data.personal.address.postCode);
+		member.personal.address.country(data.personal.address.country);
 	};
 
 	var init = function() {
