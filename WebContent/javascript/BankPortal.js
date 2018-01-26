@@ -11,7 +11,8 @@ var BankPortal = function() {
 	/* the model */
 	var member = {
 		accounts: ko.observableArray(),
-		selectedAccount: ko.observable()
+		selectedAccount: ko.observable(),
+		selectedAccountTransactions: ko.observableArray([])
 	};
 
 	/* method to set the active page */
@@ -38,7 +39,9 @@ var BankPortal = function() {
 
 	var setSelectedAccount = function(account) {
 		console.log("Setting the selected account: " + account.summary.number);
+		console.log(account);
 		member.selectedAccount(account);
+		member.selectedAccountTransactions(account.transactions());
 	};
 
 	var isSelectedAccount = function(account) {
@@ -54,7 +57,10 @@ var BankPortal = function() {
 
 		// add the accounts
 		data.accounts.forEach(function(account) {
-			member.accounts.push({summary: account.summary});
+			member.accounts.push({
+				summary: account.summary, 
+				transactions: ko.observableArray(account.transactions)
+			});
 		});
 	};
 
