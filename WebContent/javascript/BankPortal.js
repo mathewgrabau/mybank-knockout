@@ -1,9 +1,17 @@
 var BankPortal = function() {
+	/* module to retrieve data from the server */
+	var server = ServerStub();
+
 	/* attribute to hold the active page */
 	var activePage = ko.observable("Home");
 
 	/* attribute to hold the active tab. */
 	var activeTab = ko.observable('Accounts');
+
+	/* the model */
+	var member = {
+		accounts: ko.observableArray()
+	};
 
 	/* method to set the active page */
 	var setActivePage = function(page) {
@@ -27,7 +35,21 @@ var BankPortal = function() {
 		return activeTab() === tab;
 	};
 
+	/* Retrieve data from the server side and set it in the model */
+	var retrieveData = function() {
+		console.log('Retrieving data from the server....');
+		var data = server.getMemberData();
+
+		console.log('Data retrieved: ' + ko.toJSON(data));
+
+		// add the accounts
+		data.accounts.forEach(function(acount) {
+			member.accounts.push({summary: account.summary});
+		});
+	};
+
 	var init = function() {
+		retrieveData();
 		ko.applyBindings(BankPortal);
 	};
 
