@@ -43,7 +43,7 @@ var BankPortal = function() {
 		console.log('Data retrieved: ' + ko.toJSON(data));
 
 		// add the accounts
-		data.accounts.forEach(function(acount) {
+		data.accounts.forEach(function(account) {
 			member.accounts.push({summary: account.summary});
 		});
 	};
@@ -56,6 +56,7 @@ var BankPortal = function() {
 	$(init);
 
 	return {
+		member: member,
 		setActivePage: setActivePage,
 		isActivePage: isActivePage,
 		setActiveTab: setActiveTab,
