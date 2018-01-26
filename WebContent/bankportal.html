@@ -86,7 +86,9 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">Transactions</div>
 								<div class="panel-body">
-									<table class="table">
+									<p data-bind="ifnot: BankPortal.member.selectedAccount">Select an account to view the transactions</p>
+									<p data-bind="if: (BankPortal.member.selectedAccount() && BankPortal.member.selectedAccountTransactions().length == 0)">No transactions to display</p>
+									<table class="table" data-bind="if: (BankPortal.member.selectedAccount() && BankPortal.member.selectedAccountTransactions().length > 0)">
 										<thead>
 											<tr>
 												<th>#</th>
