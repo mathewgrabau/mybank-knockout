@@ -41,7 +41,14 @@
 			</div>
 		</nav>
 		<div id="home" data-bind="visible: BankPortal.isActivePage('Home')">
-			<p>Content for home goes here</p>
+			<ul class="nav nav-tabs">
+				<li data-bind="css: {active: BankPortal.isActiveTab('Accounts')}">
+					<a href="#" data-bind="click: BankPortal.setActiveTab.bind($data, 'Accounts')">Accounts</a>
+				</li>
+				<li data-bind="css: {active: BankPortal.isActiveTab('Personal')}">
+					<a href="#" data-bind="click: BankPortal.setActiveTab.bind($data, 'Personal')">Personal</a>
+				</li>
+			</ul>
 		</div>
 		<div id="about" data-bind="visible: BankPortal.isActivePage('About')">
 			<p>Content for about goes here</p>
