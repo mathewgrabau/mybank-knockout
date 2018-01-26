@@ -11,3 +11,12 @@
 	height: 300px;
 	background-color: #f7f7f7;
 }
+
+.carousel-indicators li {
+	background-color: #a8a8a8;
+	border: 1px solid #979797;
+}
+
+.carousel-indicators .active {
+	border: 1px solid #979797;
+}
