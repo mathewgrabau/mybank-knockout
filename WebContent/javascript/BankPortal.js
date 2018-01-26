@@ -10,7 +10,8 @@ var BankPortal = function() {
 
 	/* the model */
 	var member = {
-		accounts: ko.observableArray()
+		accounts: ko.observableArray(),
+		selectedAccount: ko.observable()
 	};
 
 	/* method to set the active page */
@@ -33,6 +34,15 @@ var BankPortal = function() {
 	/* returns true if paraemter matches active tab, false otherwise */
 	var isActiveTab = function(tab) {
 		return activeTab() === tab;
+	};
+
+	var setSelectedAccount = function(account) {
+		console.log("Setting the selected account: " + account.summary.number);
+		member.selectedAccount(account);
+	};
+
+	var isSelectedAccount = function(account) {
+		return account === member.selectedAccount();
 	};
 
 	/* Retrieve data from the server side and set it in the model */
@@ -60,6 +70,8 @@ var BankPortal = function() {
 		setActivePage: setActivePage,
 		isActivePage: isActivePage,
 		setActiveTab: setActiveTab,
-		isActiveTab: isActiveTab
+		isActiveTab: isActiveTab,
+		setSelectedAccount: setSelectedAccount,
+		isSelectedAccount: isSelectedAccount
 	};
 }();
