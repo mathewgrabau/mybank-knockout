@@ -27,19 +27,28 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active">
-							<a href="#">Home</a>
+						<li data-bind="css: {active: BankPortal.isActivePage('Home')}">
+							<a href="#" data-bind="click: BankPortal.setActivePage.bind($data, 'Home')">Home</a>
 						</li>
-						<li>
-							<a href="#">About</a>
+						<li data-bind="css: {active: BankPortal.isActivePage('About')}">
+							<a href="#" data-bind="click: BankPortal.setActivePage.bind($data, 'About')">About</a>
 						</li>
-						<li>
-							<a href="#">Contact</a>
+						<li data-bind="css: {active: BankPortal.isActivePage('Contact')}">
+							<a href="#" data-bind="click: BankPortal.setActivePage.bind($data, 'Contact')">Contact</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
+		<div id="home" data-bind="visible: BankPortal.isActivePage('Home')">
+			<p>Content for home goes here</p>
+		</div>
+		<div id="about" data-bind="visible: BankPortal.isActivePage('About')">
+			<p>Content for about goes here</p>
+		</div>
+		<div id="contact" data-bind="visible: BankPortal.isActivePage('Contact')">
+			<p>Content for contact goes here</p>
+		</div>
     </div>
   </body>
 </html>
