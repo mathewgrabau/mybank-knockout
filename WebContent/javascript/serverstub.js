@@ -1,6 +1,15 @@
 /* Copyright (c) Adnan Jaswal, 2015. See the file license.txt for copying permission. */
 /* Module for server stub */
 var ServerStub = function () {
+	
+	/* months for date string */
+    var monthNames = [
+                      "January", "February", "March",
+                      "April", "May", "June", "July",
+                      "August", "September", "October",
+                      "November", "December"
+                  ];
+    
 	/* add members here */
 	var memberData = {
 			personal: {		firstName: "John", lastName: "Citizen", 
@@ -35,11 +44,58 @@ var ServerStub = function () {
 	/* method returns member data */
 	var getMemberData = function () {
 		return memberData;
-	}
+	};
+	
+	var getAccounts = function () {
+		return memberData.accounts;
+	};
+	
+	var getTodaysDate = function () {
+		var date = new Date();
+		var day = date.getDate();
+		if( day < 10) {
+			day = "0" + day
+		}
+	    var monthIndex = date.getMonth();
+	    return day + ' ' + monthNames[monthIndex];
+	};
+	
+	var transferFunds = function (transferModel) {
+		//convert string to number
+		transferModel.amount = + transferModel.amount;
+
+		memberData.accounts.forEach(function(account) {
+			if(account.summary.number == transferModel.toAccount.summary.number) {
+				account.summary.balance = account.summary.balance + transferModel.amount;
+				account.transactions.push({date: getTodaysDate(), description: transferModel.description, category: "Credit", amount: transferModel.amount});
+			}
+
+			if(account.summary.number == transferModel.fromAccount.summary.number) {
+				account.summary.balance = account.summary.balance - transferModel.amount;
+				account.transactions.push({date: getTodaysDate(), description: transferModel.description, category: "Debit", amount: transferModel.amount});
+			}
+		});
+	};
+	
+	/* method to update personal information */
+	var updatePersonalInformation = function (personalInformation) {
+		memberData.personal.firstName = personalInformation.firstName;
+		memberData.personal.lastName = personalInformation.lastName;
+		memberData.personal.phoneNumber = personalInformation.contactDetails.phoneNumber;
+		memberData.personal.emailAddress = personalInformation.contactDetails.emailAddress;
+		
+		memberData.personal.address.street = personalInformation.address.street;
+		memberData.personal.address.city = personalInformation.address.city;
+		memberData.personal.address.postCode = personalInformation.address.postCode;
+		memberData.personal.address.country = personalInformation.address.country;
+	};
 	
 	return {
 		/* add members that will be exposed publicly */
 		getMemberData: getMemberData,
+		updatePersonalInformation: updatePersonalInformation,
+		transferFunds: transferFunds,
+		getAccounts: getAccounts
 
 	};
 };
