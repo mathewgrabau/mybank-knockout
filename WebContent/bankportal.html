@@ -124,6 +124,7 @@
 									<div class="alert alert-success" role="alert" data-bind="visible:BankPortal.showPersonalInformationEditDone">
 										<strong>Done! </strong>Personal information updated.
 									</div>
+									<div class="alert alert-warning" role="alert" data-bind="visible: BankPortal.showPersonalInformationEditCancel"><strong>Cancelled! </strong>Edit cancelled and values revereted</div>
 									<fieldset>
 										<div class="row">
 											<div class="col-md-6">
@@ -179,6 +180,7 @@
 									</fieldset>
 									<button type="button" class="btn btn-default" data-bind="visible: BankPortal.personalInformationEditMode() == false, click: BankPortal.enablePersonalInformationEdit">Edit</button> 
 									<button type="submit" class="btn btn-primary" data-bind="visible: BankPortal.personalInformationEditMode">Submit</button>
+									<button type="button" class="btn btn-default" data-bind="visible: BankPortal.personalInformationEditMode, click: cancelPersonalInformationEdit">Cancel</button:button>
 								</form>
 							</div>
 						</div>

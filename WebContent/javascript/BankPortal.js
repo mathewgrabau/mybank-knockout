@@ -14,20 +14,23 @@ var BankPortal = function() {
 	/* flag that shows update message */
 	var showPersonalInformationEditDone = ko.observable(false);
 
+	/* flag that shows cancel message */
+	var showPersonalInformationEditCancel = ko.observable(false);
+
 	/* the model */
 	var member = {
 		personal: {
-			firstName: ko.observable(),
-			lastName: ko.observable(),
+			firstName: ko.mementoObservable(),
+			lastName: ko.mementoObservable(),
 			address: {
-				street: ko.observable(),
-				city: ko.observable(),
-				postalCode: ko.observable(),
-				country: ko.observable()
+				street: ko.mementoObservable(),
+				city: ko.mementoObservable(),
+				postalCode: ko.mementoObservable(),
+				country: ko.mementoObservable()
 			},
 			contactDetails: {
-				phoneNumber: ko.observable(),
-				emailAddress: ko.observable()
+				phoneNumber: ko.mementoObservable(),
+				emailAddress: ko.mementoObservable()
 			}
 		},
 		accounts: ko.observableArray(),
@@ -100,19 +103,49 @@ var BankPortal = function() {
 		console.log("enablePersonalInformationEditMode");
 		personalInformationEditMode(true);
 		showPersonalInformationEditDone(false);
+		showPersonalInformationEditCancel(false);
 	};
 
 	var cancelPersonalInformationEdit = function() {
 		personalInformationEditMode(false);
+		showPersonalInformationEditDone(true);
+		resetPersonalInformation();
 	};
 
 	var submitPersonalInformation = function() {
+		// commit state of observables
+		commitPersonalInformation();
+
 		console.log("Updating personal information on the server" + ko.toJSON(member.personal));
 		server.updatePersonalInformation(ko.toJS(member.personal));
 		console.log("Personal information updated on the server");
 
 		personalInformationEditMode(false);
 		showPersonalInformationEditDone(true);
+	};
+
+	/* commit the state of personal information memento observables */
+	var commitPersonalInformation = function() {
+		member.personal.firstName.commit();
+		member.personal.lastName.commit();
+		member.personal.contactDetails.phoneNumber.commit();
+		member.personal.contactDetails.emailAddress.commit();
+		member.personal.address.street.commit();
+		member.personal.address.city.commit();
+		member.personal.address.postalCode.commit();
+		member.personal.address.country.commit();
+	};
+
+	/* reset state of the personal informaion memento observables */
+	var resetPersonalInformation = function() {
+		member.personal.firstName.reset();
+		member.personal.lastName.reset();
+		member.personal.contactDetails.phoneNumber.reset();
+		member.personal.contactDetails.emailAddress.reset();
+		member.personal.address.street.reset();
+		member.personal.address.city.reset();
+		member.personal.address.postalCode.reset();
+		member.personal.address.country.reset();
 	};
 
 	var init = function() {
@@ -134,6 +167,7 @@ var BankPortal = function() {
 		enablePersonalInformationEdit: enablePersonalInformationEdit,
 		cancelPersonalInformationEdit: cancelPersonalInformationEdit,
 		submitPersonalInformation: submitPersonalInformation,
-		showPersonalInformationEditDone: showPersonalInformationEditDone
+		showPersonalInformationEditDone: showPersonalInformationEditDone,
+		showPersonalInformationEditCancel: showPersonalInformationEditCancel
 	};
 }();
