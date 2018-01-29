@@ -221,7 +221,20 @@
 											</div>
 										</div>
 										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 2">
-											<p>Second step</p>
+											<div class="row row-centered">
+												<div class="col-md-8 col-centered">
+													<div class="form-group">
+														<label for="transferAmount" class="pull-left">Amount</label>
+														<input class="form-control" name="transferAmount" id="transferAmount" data-bind="value: BankPortal.transfer.amount">
+													</div>
+												</div>
+												<div class="col-md-8 col-centered">
+													<div class="form-group">
+														<label class="pull-left" for="transferDescription">Description</label>
+														<input type="text" class="form-control" id="transferDescription" name="transferDescription" data-bind="value: BankPortal.transfer.description">
+													</div>
+												</div>
+											</div>
 										</div>
 										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 3">
 											<p>Third step</p>
