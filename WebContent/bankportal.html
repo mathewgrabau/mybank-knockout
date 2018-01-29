@@ -237,7 +237,20 @@
 											</div>
 										</div>
 										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 3">
-											<p>Third step</p>
+											<div class="row row-centered">
+												<div class="col-md-8 col-centered">
+													<strong>From account: </strong><span data-bind="text: BankPortal.transfer.fromAccount().summary.type + ' ' + BankPortal.transfer.fromAccount().summary.number"></span>
+												</div>
+												<div class="col-md-8 col-centered">
+													<strong>To account: </strong><span data-bind="text: BankPortal.transfer.toAccount().summary.type + ' ' + BankPortal.transfer.toAccount().summary.number"></span>
+												</div>
+												<div class="col-md-8 col-centered">
+													<strong>Amount: </strong><span data-bind="text: BankPortal.transfer.amount">></span>
+												</div>
+												<div class="col-md-8 col-centered">
+													<strong>Description: </strong><span data-bind="text: BankPortal.transfer.description"></span>
+												</div>
+											</div>
 										</div>
 									</div>
 
