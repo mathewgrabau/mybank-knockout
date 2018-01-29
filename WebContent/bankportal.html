@@ -6,6 +6,7 @@
     
 	<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/carousel.css">
+	<link rel="stylesheet" href="css/bankportal.css">
     
     <script type="text/javascript" src="javascript/jquery.js"></script>
     <script type="text/javascript" src="javascript/knockout-latest.js"></script>
@@ -13,6 +14,7 @@
 	<script type="text/javascript" src="javascript/ConfigureKnockout.js"></script>
 	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="javascript/serverstub.js"></script>
+	<script type="text/javascript" src="javascript/Wizard.js"></script>
     <script type="text/javascript" src="javascript/BankPortal.js"></script>
   </head>
   <body>
@@ -196,8 +198,23 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">Transfer Funds</div>
 							<div class="panel-body">
-								<p>Transfer Funds</p>
+								<div class="row row-centered">
+									<div class="col-md-8 col-centered">
+										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 1">
+											<p>First step</p>
+										</div>
+										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 2">
+											<p>Second step</p>
+										</div>
+										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 3">
+											<p>Third step</p>
+										</div>
+									</div>
+								</div>
 							</div>
+							<button type="button" class="btn btn-default pull-left" data-bind="click: BankPortal.transferWizard.back, visible: BankPortal.transferWizard.isFirstStep() == false">Back</button>
+							<button class="btn btn-default pull-right" data-bind="click: BankPortal.transferWizard.next, visible: BankPortal.transferWizard.isLastStep() == false">Next</button>
+							<button class="btn btn-default pull-right" data-bind="click: BankPortal.transferWizard.done, visible: BankPortal.transferWizard.isLastStep() == true">Done</button>
 						</div>
 					</div>
 				</div>

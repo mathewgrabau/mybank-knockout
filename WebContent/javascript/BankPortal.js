@@ -20,6 +20,9 @@ var BankPortal = function() {
 	/* Captures the validation errors from the model */
 	var validationErrors;
 
+	/* Wizard module */
+	var transferWizard = Wizard(3);
+
 	/* the model */
 	var member = {
 		personal: {
@@ -184,6 +187,7 @@ var BankPortal = function() {
 		cancelPersonalInformationEdit: cancelPersonalInformationEdit,
 		submitPersonalInformation: submitPersonalInformation,
 		showPersonalInformationEditDone: showPersonalInformationEditDone,
-		showPersonalInformationEditCancel: showPersonalInformationEditCancel
+		showPersonalInformationEditCancel: showPersonalInformationEditCancel,
+		transferWizard: transferWizard
 	};
 }();
