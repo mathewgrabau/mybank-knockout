@@ -210,11 +210,19 @@
 											<p>Third step</p>
 										</div>
 									</div>
+
+									<ul class="wizard-indicators">
+										<li data-bind="css: {active: BankPortal.transferWizard.currentStep() == 1 }"></li>
+										<li data-bind="css: {active: BankPortal.transferWizard.currentStep() == 2 }"></li>
+										<li data-bind="css: {acitve: BankPortal.transferWizard.currentStep() == 3 }"></li>
+									</ul>
+								</div>
+								<div class="row row-centered">
+									<button type="button" class="btn btn-default pull-left" data-bind="click: BankPortal.transferWizard.back, visible: BankPortal.transferWizard.isFirstStep() == false">Back</button>
+									<button class="btn btn-default pull-right" data-bind="click: BankPortal.transferWizard.next, visible: BankPortal.transferWizard.isLastStep() == false">Next</button>
+									<button class="btn btn-default pull-right" data-bind="click: BankPortal.transferWizard.done, visible: BankPortal.transferWizard.isLastStep() == true">Done</button>
 								</div>
 							</div>
-							<button type="button" class="btn btn-default pull-left" data-bind="click: BankPortal.transferWizard.back, visible: BankPortal.transferWizard.isFirstStep() == false">Back</button>
-							<button class="btn btn-default pull-right" data-bind="click: BankPortal.transferWizard.next, visible: BankPortal.transferWizard.isLastStep() == false">Next</button>
-							<button class="btn btn-default pull-right" data-bind="click: BankPortal.transferWizard.done, visible: BankPortal.transferWizard.isLastStep() == true">Done</button>
 						</div>
 					</div>
 				</div>
