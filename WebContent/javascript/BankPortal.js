@@ -16,21 +16,24 @@ var BankPortal = function() {
 
 	/* flag that shows cancel message */
 	var showPersonalInformationEditCancel = ko.observable(false);
+	
+	/* Captures the validation errors from the model */
+	var validationErrors;
 
 	/* the model */
 	var member = {
 		personal: {
-			firstName: ko.mementoObservable(),
-			lastName: ko.mementoObservable(),
+			firstName: ko.mementoObservable().extend({ required: true }),
+			lastName: ko.mementoObservable().extend({ required: true }),
 			address: {
-				street: ko.mementoObservable(),
-				city: ko.mementoObservable(),
-				postalCode: ko.mementoObservable(),
-				country: ko.mementoObservable()
+				street: ko.mementoObservable().extend({ required: true}),
+				city: ko.mementoObservable().extend({required: true }),
+				postalCode: ko.mementoObservable().extend({required: true }),
+				country: ko.mementoObservable().extend({ required: true })
 			},
 			contactDetails: {
-				phoneNumber: ko.mementoObservable(),
-				emailAddress: ko.mementoObservable()
+				phoneNumber: ko.mementoObservable().extend({ required: true }),
+				emailAddress: ko.mementoObservable().extend({ required: true})
 			}
 		},
 		accounts: ko.observableArray(),
@@ -121,6 +124,10 @@ var BankPortal = function() {
 	};
 
 	var submitPersonalInformation = function() {
+		if (validationErrors().length > 0) {
+			console.log("There are errors in the model (validation failed");
+			return;
+		}
 		// commit state of observables
 		commitPersonalInformation();
 
@@ -129,7 +136,7 @@ var BankPortal = function() {
 		console.log("Personal information updated on the server");
 
 		personalInformationEditMode(false);
-		showPersonalInformationEditDone(true);
+		showPersonalInformationEditDone(true);		
 	};
 
 	/* commit the state of personal information memento observables */
@@ -158,6 +165,7 @@ var BankPortal = function() {
 
 	var init = function() {
 		retrieveData();
+		validationErrors = ko.validation.group(member, { deep: true });
 		ko.applyBindings(BankPortal);
 	};
 

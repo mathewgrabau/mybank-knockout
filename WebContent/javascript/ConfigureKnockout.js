@@ -38,9 +38,19 @@ var ConfigureKnockout = function() {
         }
     };
 
+    var configureValidatorPlugin = function() {
+        ko.validation.init({
+            errorElementClass: "has-error",
+            errorMessageClass: "help-block"
+        });
+
+        
+    };
+
     var init = function() {
         createMementoObservable();
         applyCurrencyBinding();
+        configureValidatorPlugin();
     }();
 
     return {
