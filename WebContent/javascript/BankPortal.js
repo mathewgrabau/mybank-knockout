@@ -174,9 +174,15 @@ var BankPortal = function() {
 		member.personal.address.country.reset();
 	};
 
+	var transferFunds = function() {
+		console.log("Transfer funds...");
+
+	};
+
 	var init = function() {
 		retrieveData();
 		validationErrors = ko.validation.group(member, { deep: true });
+		transferWizard.setDoneCallback(transferFunds);
 		ko.applyBindings(BankPortal);
 	};
 
