@@ -88,14 +88,22 @@ var BankPortal = function() {
 
 		// Add the personal information in
 		member.personal.firstName(data.personal.firstName);
+		member.personal.firstName.commit();	// Commit to ensure that it is saved in the original case
 		member.personal.lastName(data.personal.lastName);
+		member.personal.lastName.commit();
 		member.personal.contactDetails.phoneNumber(data.personal.phoneNumber);
+		member.personal.contactDetails.phoneNumber.commit();
 		member.personal.contactDetails.emailAddress(data.personal.emailAddress);
+		member.personal.contactDetails.emailAddress.commit();
 
 		member.personal.address.street(data.personal.address.street);
+		member.personal.address.street.commit();
 		member.personal.address.city(data.personal.address.city);
+		member.personal.address.city.commit();
 		member.personal.address.postalCode(data.personal.address.postCode);
+		member.personal.address.postalCode.commit();
 		member.personal.address.country(data.personal.address.country);
+		member.personal.address.country.commit();
 	};
 
 	/* Enable and cancel personal information edit mode */
@@ -108,7 +116,7 @@ var BankPortal = function() {
 
 	var cancelPersonalInformationEdit = function() {
 		personalInformationEditMode(false);
-		showPersonalInformationEditDone(true);
+		showPersonalInformationEditCancel(true);
 		resetPersonalInformation();
 	};
 
