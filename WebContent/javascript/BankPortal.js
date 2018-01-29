@@ -21,7 +21,7 @@ var BankPortal = function() {
 	var validationErrors;
 
 	/* Wizard module */
-	var transferWizard = Wizard(3);
+	var transferWizard = Wizard(3, "Funds transferred");
 
 	/* the model */
 	var member = {
@@ -175,8 +175,35 @@ var BankPortal = function() {
 	};
 
 	var transferFunds = function() {
-		console.log("Transfer funds...");
+		console.log("Transfer amount " + transfer.amount() + " from account "+ transfer.fromAccount().summary.number + " to account " + transfer.toAccount().summary.number);
 
+		// submit the request for the tranfser
+		server.transferFunds(ko.toJS(transfer));
+
+		// retrieve updated accounts
+		var accounts = server.getAccounts();
+
+		// remove stale accounts
+		member.accounts.removeAll();
+
+		// Add updated accounts to the model
+		accounts.forEach(function(account) {
+			member.accounts.push({
+				summary: account.summary,
+				transactions: ko.observableArray(account.transactions)
+			});
+		});
+
+		// clear the transfer model
+		clearTransferModel();
+
+	};
+
+	var clearTransferModel = function() {
+		transfer.amount(null);
+		transfer.description(null);
+		transfer.toAccount(null);
+		transfer.fromAccount(null);
 	};
 
 	var init = function() {

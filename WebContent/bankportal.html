@@ -198,6 +198,10 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">Transfer Funds</div>
 							<div class="panel-body">
+								<div class="alert alert-success" role="alert" data-bind="visible: BankPortal.transferWizard.showDoneMessage">
+									<strong>Success! </strong>
+									<span data-bind="text: BankPortal.transferWizard.doneMessage"></span>
+								</div>
 								<div class="row row-centered">
 									<div class="col-md-8 col-centered">
 										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 1">

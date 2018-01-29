@@ -1,9 +1,13 @@
-var Wizard = function(steps) {
+var Wizard = function(steps, message) {
     var numberOfSteps;
 
     var currentStep = ko.observable();
 
     var doneCallback;
+
+    var showDoneMessage = ko.observable(false);
+
+    var doneMessage = ko.observable(message);
 
     // method to go back a step
     var back = function() {
@@ -13,6 +17,7 @@ var Wizard = function(steps) {
     // method to go fordward a step
     var next = function() {
         currentStep(currentStep() + 1);
+        showDoneMessage(false);
     };
 
     var done = function() {
@@ -20,6 +25,7 @@ var Wizard = function(steps) {
         console.log("user clicked done");
         currentStep(1);
         doneCallback();
+        showDoneMessage(true);
     };
 
     var isLastStep = ko.pureComputed(function() {
@@ -48,6 +54,8 @@ var Wizard = function(steps) {
         done: done,
         isLastStep: isLastStep,
         isFirstStep: isFirstStep,
-        setDoneCallback: setDoneCallback
+        setDoneCallback: setDoneCallback,
+        doneMessage: doneMessage,
+        showDoneMessage: showDoneMessage
     };
 };
