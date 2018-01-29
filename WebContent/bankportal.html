@@ -51,6 +51,9 @@
 				<li data-bind="css: {active: BankPortal.isActiveTab('Personal')}">
 					<a href="#" data-bind="click: BankPortal.setActiveTab.bind($data, 'Personal')">Personal</a>
 				</li>
+				<li data-bind="css: {active: BankPortal.isActiveTab('Transfers')">
+					<a href="#" data-bind="click: BankPortal.setActiveTab.bind($data, 'Transfers')">Transfers</a>
+				</li>
 			</ul>
 			<div id="accounts" data-bind="visible: BankPortal.isActiveTab('Accounts')">
 				<div class="row">
@@ -186,6 +189,9 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div id="transfers" data-bind="visible: BankPortal.isActiveTab('Transfers')">
+				Transfer pane
 			</div>
 		</div>
 		<div id="about" data-bind="visible: BankPortal.isActivePage('About')">
