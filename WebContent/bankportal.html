@@ -201,7 +201,24 @@
 								<div class="row row-centered">
 									<div class="col-md-8 col-centered">
 										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 1">
-											<p>First step</p>
+											<div class="row row-centered">
+												<div class="col-md-6 col-centered">
+													<div class="form-group">
+														<label for="accountFrom" class="pull-left">Account From</label>
+														<select name="accountFrom" id="accountFrom" class="form-control" 
+															data-bind="options: BankPortal.member.accounts, optionsText: function(item) { return item.summary.type + ' ' + item.summary.number }, optionsCaption: 'Choose from account...', value: BankPortal.transfer.fromAccount">
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6 col-centered">
+													<div class="form-group">
+														<label for="accountTo" class="pull-left">Account To</label>
+														<select name="accountTo" id="accountTo" class="form-control" 
+															data-bind="options: BankPortal.member.accounts, optionsText: function(item) { return item.summary.type + ' ' + item.summary.number }, optionsCaption: 'Choose to account...', value: BankPortal.transfer.toAccount">
+														</select>
+													</div>
+												</div>
+											</div>
 										</div>
 										<div class="wizard-step" data-bind="if: BankPortal.transferWizard.currentStep() == 2">
 											<p>Second step</p>

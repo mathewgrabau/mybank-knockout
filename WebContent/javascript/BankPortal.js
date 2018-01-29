@@ -44,6 +44,14 @@ var BankPortal = function() {
 		selectedAccountTransactions: ko.observableArray([])
 	};
 
+	/* model for the transfer */
+	var transfer = {
+		toAccount: ko.observable(),
+		fromAccount: ko.observable(),
+		amount: ko.observable(),
+		description: ko.observable()
+	};
+
 	/* method to set the active page */
 	var setActivePage = function(page) {
 		console.log("Setting the active page to: " + page);
@@ -176,6 +184,7 @@ var BankPortal = function() {
 
 	return {
 		member: member,
+		transfer: transfer,
 		setActivePage: setActivePage,
 		isActivePage: isActivePage,
 		setActiveTab: setActiveTab,
