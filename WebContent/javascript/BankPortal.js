@@ -8,6 +8,12 @@ var BankPortal = function() {
 	/* attribute to hold the active tab. */
 	var activeTab = ko.observable('Accounts');
 
+	/* edit mode for personal information */
+	var personalInformationEditMode = ko.observable(false);
+	
+	/* flag that shows update message */
+	var showPersonalInformationEditDone = ko.observable(false);
+
 	/* the model */
 	var member = {
 		personal: {
@@ -89,6 +95,26 @@ var BankPortal = function() {
 		member.personal.address.country(data.personal.address.country);
 	};
 
+	/* Enable and cancel personal information edit mode */
+	var enablePersonalInformationEdit = function() {
+		console.log("enablePersonalInformationEditMode");
+		personalInformationEditMode(true);
+		showPersonalInformationEditDone(false);
+	};
+
+	var cancelPersonalInformationEdit = function() {
+		personalInformationEditMode(false);
+	};
+
+	var submitPersonalInformation = function() {
+		console.log("Updating personal information on the server" + ko.toJSON(member.personal));
+		server.updatePersonalInformation(ko.toJS(member.personal));
+		console.log("Personal information updated on the server");
+
+		personalInformationEditMode(false);
+		showPersonalInformationEditDone(true);
+	};
+
 	var init = function() {
 		retrieveData();
 		ko.applyBindings(BankPortal);
@@ -103,6 +129,11 @@ var BankPortal = function() {
 		setActiveTab: setActiveTab,
 		isActiveTab: isActiveTab,
 		setSelectedAccount: setSelectedAccount,
-		isSelectedAccount: isSelectedAccount
+		isSelectedAccount: isSelectedAccount,
+		personalInformationEditMode: personalInformationEditMode,
+		enablePersonalInformationEdit: enablePersonalInformationEdit,
+		cancelPersonalInformationEdit: cancelPersonalInformationEdit,
+		submitPersonalInformation: submitPersonalInformation,
+		showPersonalInformationEditDone: showPersonalInformationEditDone
 	};
 }();

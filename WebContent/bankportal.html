@@ -64,7 +64,7 @@
 											<th>#</th>
 											<th>Branch</th>
 											<th>Number</th>
-											<th>Type</th>
+											<th>Type</th>	
 											<th>Balance</th>
 										</tr>
 									</thead>
@@ -120,18 +120,21 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">Personal Details</div>
 							<div class="panel-body">
-								<form>
+								<form data-bind="submit: BankPortal.submitPersonalInformation">
+									<div class="alert alert-success" role="alert" data-bind="visible:BankPortal.showPersonalInformationEditDone">
+										<strong>Done! </strong>Personal information updated.
+									</div>
 									<fieldset>
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="firstNameInput">First Name</label>
-													<input type="text" name="firstNameInput" id="firstNameInput" class="form-control" data-bind="enable: false, value: BankPortal.member.personal.firstName">
+													<input type="text" name="firstNameInput" id="firstNameInput" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.firstName">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group"><label for="lastNameInput">Last Name</label>
-													<input type="text" name="lastNameInput" id="lastNameInput" class="form-control" data-bind="enable: false, value: BankPortal.member.personal.lastName">
+													<input type="text" name="lastNameInput" id="lastNameInput" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.lastName">
 												</div>
 											</div>
 										</div>
@@ -139,13 +142,13 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="phoneNumberInput">Phone Number</label>
-													<input type="text" name="phoneNumberInput" id="phoneNumberInput" class="form-control" data-bind="enable: false, value: BankPortal.member.personal.contactDetails.phoneNumber">
+													<input type="text" name="phoneNumberInput" id="phoneNumberInput" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.contactDetails.phoneNumber">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="emailInput">Email</label>
-													<input type="text" name="emailInput" id="emailInput" class="form-control" data-bind="enable: false, value: BankPortal.member.personal.contactDetails.emailAddress">
+													<input type="text" name="emailInput" id="emailInput" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.contactDetails.emailAddress">
 												</div>
 											</div>
 										</div>
@@ -156,24 +159,26 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label for="streetAddressInput">Street Address</label>
-													<input type="text" name="streetAddressInput" id="streetAddressInput" class="form-control" data-bind="enable: false, value: BankPortal.member.personal.address.street">
+													<input type="text" name="streetAddressInput" id="streetAddressInput" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.address.street">
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-8">
-												<div class="form-group"><label for="cityInput">City</label><input type="text" name="cityInput" id="cityInput" class="form-control" data-bind="enable: false, value: BankPortal.member.personal.address.city"></div>
+												<div class="form-group"><label for="cityInput">City</label><input type="text" name="cityInput" id="cityInput" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.address.city"></div>
 											</div>
 											<div class="col-md-4">
-												<div class="form-group"><label for="postalCodeInput">Postal Code</label><input type="text" name="postalCodeInput" id="postalCodeInput" class="form-control" data-bind="enable: false, value: BankPortal.member.personal.address.postalCode"></div>
+												<div class="form-group"><label for="postalCodeInput">Postal Code</label><input type="text" name="postalCodeInput" id="postalCodeInput" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.address.postalCode"></div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-8">
-												<div class="form-group"><label for="countryInput">Country</label><input type="text" name="countryInput" id="countryInput" class="form-control" data-bind="enable: false, value: BankPortal.member.personal.address.country"></div>
+												<div class="form-group"><label for="countryInput">Country</label><input type="text" name="countryInput" id="countryInput" class="form-control" data-bind="enable: BankPortal.personalInformationEditMode, value: BankPortal.member.personal.address.country"></div>
 											</div>
 										</div>
 									</fieldset>
+									<button type="button" class="btn btn-default" data-bind="visible: BankPortal.personalInformationEditMode() == false, click: BankPortal.enablePersonalInformationEdit">Edit</button> 
+									<button type="submit" class="btn btn-primary" data-bind="visible: BankPortal.personalInformationEditMode">Submit</button>
 								</form>
 							</div>
 						</div>
