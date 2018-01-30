@@ -23,10 +23,14 @@
 	<div class="container" data-bind="ifnot: BankPortal.authenticator.isAuthenticated">
 		<form class="form-login" data-bind="submit: BankPortal.authenticator.login">
 			<h2 class="form-login-heading">Please Sign In</h2>
-			<label for="inputUserName" class="sr-only">User name</label>
-			<input type="text" name="inputUserName" id="inputUserName" class="form-control" placeholder="User Name" data-bind="value: BankPortal.authenticator.credentials.userName">
-			<label for="inputPassword" class="sr-only">Password</label>
-			<input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" data-bind="value: BankPortal.authenticator.credentials.password">
+			<div data-bind="validationOptions: { insertMessages: false}, validationElement: BankPortal.authenticator.credentials.userName">
+				<label for="inputUserName" class="sr-only">User name</label>
+				<input type="text" name="inputUserName" id="inputUserName" class="form-control" placeholder="User Name" data-bind="value: BankPortal.authenticator.credentials.userName">
+			</div>
+			<div data-bind="validationOptions: { insertMessages: false}, validationElement: BankPortal.authenticator.credentials.password">
+				<label for="inputPassword" class="sr-only">Password</label>
+				<input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" data-bind="value: BankPortal.authenticator.credentials.password">
+			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		</form>
 	</div>

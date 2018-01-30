@@ -2,8 +2,8 @@ var Authenticator = function(serverModule) {
     var server = serverModule;
 
     var credentials = {
-        userName: ko.observable(),
-        password: ko.observable()
+        userName: ko.observable().extend({ required: true }),
+        password: ko.observable().extend({ required: true })
     };
 
     var authenticationToken = ko.observable();
@@ -20,6 +20,11 @@ var Authenticator = function(serverModule) {
 
     /* Exposed login method */
     var login = function() {
+        if (credentials.errors().length > 0) {
+            console.log("credentials are invalid");
+            credentials.errors.showAllMessages();
+            return;
+        }
         var token = server.login(credentials.userName(), credentials.password());
         authenticationToken(token);
         console.log("Login: " + authenticationToken());
@@ -38,6 +43,9 @@ var Authenticator = function(serverModule) {
         } else {
             authenticationToken(token);
         }
+
+        /* Validation errors */
+        credentials.errors = ko.validation.group(credentials);
     }();
 
     return {
