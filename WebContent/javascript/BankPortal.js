@@ -2,6 +2,9 @@ var BankPortal = function() {
 	/* module to retrieve data from the server */
 	var server = ServerStub();
 
+	/* Authentication module */
+	var authenticator = Authenticator(server);
+
 	/* attribute to hold the active page */
 	var activePage = ko.observable("Home");
 
@@ -88,7 +91,7 @@ var BankPortal = function() {
 	/* Retrieve data from the server side and set it in the model */
 	var retrieveData = function() {
 		console.log('Retrieving data from the server....');
-		var data = server.getMemberData();
+		var data = server.getMemberData(authenticator.getAuthenticationToken());
 
 		console.log('Data retrieved: ' + ko.toJSON(data));
 
@@ -143,7 +146,7 @@ var BankPortal = function() {
 		commitPersonalInformation();
 
 		console.log("Updating personal information on the server" + ko.toJSON(member.personal));
-		server.updatePersonalInformation(ko.toJS(member.personal));
+		server.updatePersonalInformation(ko.toJS(member.personal), authenticator.getAuthenticationToken());
 		console.log("Personal information updated on the server");
 
 		personalInformationEditMode(false);
@@ -178,10 +181,10 @@ var BankPortal = function() {
 		console.log("Transfer amount " + transfer.amount() + " from account "+ transfer.fromAccount().summary.number + " to account " + transfer.toAccount().summary.number);
 
 		// submit the request for the tranfser
-		server.transferFunds(ko.toJS(transfer));
+		server.transferFunds(ko.toJS(transfer), authenticator.getAuthenticationToken());
 
 		// retrieve updated accounts
-		var accounts = server.getAccounts();
+		var accounts = server.getAccounts(authenticator.getAuthenticationToken());
 
 		// remove stale accounts
 		member.accounts.removeAll();
@@ -206,10 +209,19 @@ var BankPortal = function() {
 		transfer.fromAccount(null);
 	};
 
+	var postAuthenticationInit = function() {
+		if (authenticator.isAuthenticated()) {
+			retrieveData();
+			// model validation errors
+			validationErrors = ko.validation.group(member, { deep: true });
+		}
+	};
+
 	var init = function() {
-		retrieveData();
-		validationErrors = ko.validation.group(member, { deep: true });
+		
 		transferWizard.setDoneCallback(transferFunds);
+		authenticator.setCallback(postAuthenticationInit);
+
 		ko.applyBindings(BankPortal);
 	};
 
@@ -230,6 +242,7 @@ var BankPortal = function() {
 		submitPersonalInformation: submitPersonalInformation,
 		showPersonalInformationEditDone: showPersonalInformationEditDone,
 		showPersonalInformationEditCancel: showPersonalInformationEditCancel,
-		transferWizard: transferWizard
+		transferWizard: transferWizard,
+		authenticator: authenticator
 	};
 }();
