@@ -42,6 +42,13 @@ var Authenticator = function(serverModule) {
         loginCallback = callback;
     };
 
+    var loggedInUser = ko.pureComputed(function() {
+        var token = authenticationToken();
+        var split = token.split("\.");
+        var userPayload = JSON.parse(jwt.base64urldecode(split[1]));
+        return userPayload.userName;
+    });
+
     var init = function() {
         var token = sessionStorage.getItem("token");
         if (token == null) {
@@ -60,6 +67,7 @@ var Authenticator = function(serverModule) {
         getAuthenticationToken: getAuthenticationToken,
         setCallback: setCallback,
         login: login,
-        showAuthenticationFailed: showAuthenticationFailed
+        showAuthenticationFailed: showAuthenticationFailed,
+        loggedInUser: loggedInUser
     };
 };
