@@ -18,6 +18,8 @@ var Authenticator = function(serverModule) {
         return authenticationToken() !== false;
     });
 
+    var showAuthenticationFailed = ko.observable(false);
+
     /* Exposed login method */
     var login = function() {
         if (credentials.errors().length > 0) {
@@ -26,6 +28,10 @@ var Authenticator = function(serverModule) {
             return;
         }
         var token = server.login(credentials.userName(), credentials.password());
+        if (token == false) {
+            showAuthenticationFailed(true);
+            return;
+        }
         authenticationToken(token);
         console.log("Login: " + authenticationToken());
         loginCallback();
@@ -53,6 +59,7 @@ var Authenticator = function(serverModule) {
         credentials: credentials,
         getAuthenticationToken: getAuthenticationToken,
         setCallback: setCallback,
-        login: login
+        login: login,
+        showAuthenticationFailed: showAuthenticationFailed
     };
 };
